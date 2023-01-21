@@ -9,14 +9,14 @@
   <br>FastColabCopy
 </h1>
   <p align="center">
-    A **S**tructal **R**edundant **S**hort **R**eads **C**ollapser via Cycle-Hash-Linkage Data Structure.
+    基于循环哈希链表的DNA测序数据结构冗余短序列去重器
     <br />
     </p>
 </p>
 <p align="center">
-  <a href="#about-the-project">About The Project</a> •
-  <a href="#usage">How To Use</a> •
-  <a href="#examples">Examples</a> •
+  <a href="#项目说明">项目说明</a> •
+  <a href="#使用方法">使用方法</a> •
+  <a href="#测试数据集">测试数据集</a> •
   <a href="#best-practice">Best Practice</a> •
   <a href="#credits">Credits</a> •
   <a href="examples.md">More Examples</a>
@@ -27,15 +27,17 @@
 ![screenshot](img/clip.gif)
 </p>                                                                                                                             
                                                                                                                                                       
-## About The Project
-FastColabCopy is a Python script for parallel (multi-threading) copying of files between two locations. Currently developed for Google-Drive to Google-Drive transfers using Google-Colab. This script frequently achieves 10-50x speed improvements when copying numerous small files.
+## 项目说明
+SR2C（Structal Redundant Short Reads Collapser）是一款基于循环哈希链表（Cycle-Hash-Linkage）数据结构的短序列去重器。SR2C旨在去除高通量基因组测序数据中的结构冗余序列，包括直接重复(Direct Repeats, DRs)、镜像重复(Mirror Repeats, MRs)、反转重复(Inverted Repeats, IRs)、配对重复(Paired Repeats, PRs)和互补回文重复(Complementary Palindromes Repeats, CPRs)。
 
-## Importing
+## 使用方法
 
-Import from GitHub:
-```py
-!wget https://raw.githubusercontent.com/L0garithmic/fastcolabcopy/main/fastcopy.py
-import fastcopy
+从GitHub克隆SR2C项目并编译:
+```sh
+git clone https://github.com/fahaihi/SR2C.git
+cd SR2C
+chmod +x install.sh
+./install.sh
 ```
 
 Import from Google Drive:
@@ -45,7 +47,7 @@ import fastcopy
 ```
 
 
-## Usage
+## 测试数据集
 ```sh
 usage: fast-copy.py [-h HELP] source destination [-d DELETE] [-s SYNC] [-r REPLACE]
 
@@ -61,7 +63,7 @@ optional arguments:
 ```
 The `source` and `destination` fields are required. Everything else is optional.
 
-## Examples
+## 测试数据集
 ```py
 from google.colab import drive
 drive.mount('/gdrive', force_remount=False)
