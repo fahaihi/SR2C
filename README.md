@@ -5,7 +5,7 @@
 <br />
 <h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/L0garithmic/FastColabCopy/main/img/logo.png" alt="Logo" width="140" height="110">
+  <img src="https://github.com/fahaihi/SR2C/blob/master/SR2C_LOGO.png" alt="Logo" width="1305" height="326">
   <br>FastColabCopy
 </h1>
   <p align="center">
