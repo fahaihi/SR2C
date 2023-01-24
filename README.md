@@ -1,12 +1,13 @@
-![made-with-C++14](https://img.shields.io/badge/Made%20with-C++14-brightgreen)
+![made-with-C++](https://img.shields.io/badge/Made%20with-C++11-brightgreen)
+![made-with-OpenMP](https://img.shields.io/badge/Made%20with-OpenMP-blue)
 
 
 <!-- LOGO -->
 <br />
 <h1>
 <p align="center">
-  <img src="https://github.com/fahaihi/SR2C/blob/master/SR2C_LOGO.png" alt="Logo" width="1305" height="326">
-  <br>FastColabCopy
+  <img src="https://github.com/fahaihi/SR2C/blob/master/SR2C_LOGO.png" alt="Logo" width="653" height="163">
+  <br>Structal Redundant Short Reads Collapser
 </h1>
   <p align="center">
     基于循环哈希链表的DNA测序数据结构冗余短序列去重器
@@ -17,9 +18,8 @@
   <a href="#项目说明">项目说明</a> •
   <a href="#使用方法">使用方法</a> •
   <a href="#测试数据集">测试数据集</a> •
-  <a href="#best-practice">Best Practice</a> •
-  <a href="#credits">Credits</a> •
-  <a href="examples.md">More Examples</a>
+  <a href="#致谢及相关仓库链接">致谢及相关仓库链接</a> •
+  <a href="#补充信息">补充信息</a> •
 </p>  
 
 <p align="center">
@@ -48,44 +48,73 @@ import fastcopy
 
 
 ## 测试数据集
+
+实验采用NCBI开源数据库(https://www.ncbi.nlm.nih.gov) 中6组开数据集SRR921889、ERR7091256、SRR11994956、SRR17794741_1、SRR13556216_2和SRR8386204_2用于实验评估。数据集下载使用sra-tools 工具，其脚本配置参见：https://github.com/ncbi/sra-tools. 6组测试数据详细下载脚本如下：
+
 ```sh
-usage: fast-copy.py [-h HELP] source destination [-d DELETE] [-s SYNC] [-r REPLACE]
-
-optional arguments:
-  -h --help            show this help message and exit
-  source                the drive you are copying from
-  destination           the drive you are copying to
-  -d --delete           delete the source files after copy
-  -s --sync             delete files in destination if not found in source (do not use, if using with rsync)
-  -r --replace          replace files if they exist
-  -t --thread           set the amount of parallel threads used
-  -l --size-limit       set max size of files copied (supports gb, mb, kb) eg 1.5gb
+# 数据集1：SRR921889 人类病毒宏基因组
+# URL: https://www.ebi.ac.uk/ena/browser/view/SRR921889
+cd SR2C/data
+prefetch SRR921889
+fastq-dump SRR921889
+rm -rf  SRR921889
 ```
-The `source` and `destination` fields are required. Everything else is optional.
 
-## 测试数据集
-```py
-from google.colab import drive
-drive.mount('/gdrive', force_remount=False)
-import os
-!wget -q https://raw.githubusercontent.com/L0garithmic/fastcolabcopy/main/fastcopy.py
-import fastcopy
-!python fastcopy.py /gdrive/Shareddrives/Source/. /gdrive/Shareddrives/Destination --thread 20 --size-limit 400mb
+```sh
+# 数据集2：ERR7091256 智人
+# URL: https://www.ebi.ac.uk/ena/browser/view/ERR7091256
+prefetch ERR7091256
+fastq-dump ERR7091256 
+rm -rf  ERR7091256
 ```
-If you want to see copy execution time:
-```mod
-!pip install -q ipython-autotime
-%load_ext autotime
+
+```sh
+# 数据集3：SRR11994956 美洲红点鲑
+# URL: https://www.ebi.ac.uk/ena/browser/view/SRR11994956
+prefetch SRR11994956
+fastq-dump SRR11994956
+rm -rf  SRR11994956
 ```
-Check out <a href="examples.md">examples.md</a> for some more examples.
 
-## Best Practice
-Colab has wildly varying transfer speeds, because of this, the best we can offer are suggestions:
-- For large groups of medium/small files, 15-40 threads seems to work best.
-- For 50+ files with significantly varying sizes, try 2 sequentially copies. `-t 15 -l 400` then `-t 2`
-- For files that are 100MB+, it is best to use 2 threads. It is still faster then rsync.   
-- Currently `--sync` breaks if rsync is ran after. If you are mirroring drives. Disable `--sync` and use the rsync's `--delete` function.
+```sh
+# 数据集4：SRR17794741_1	小鼠肿瘤
+# URL: https://www.ebi.ac.uk/ena/browser/view/SRR17794741
+prefetch SRR17794741
+fastq-dump --split-files SRR17794741
+rm -rf  SRR17794741 SRR17794741_2.fastq
+```
 
-## Credits
-- Credit to [ikonikon](https://github.com/ikonikon/fast-copy) for the base multi-threading code.   
-- Thanks to [@Ostokhoon](https://www.freelancer.com/u/Ostokhoon) for ALL argument and folder hierarchy functionality.
+```sh
+# 数据集5：SRR13556216_2	鹰嘴豆
+# URL: https://www.ebi.ac.uk/ena/browser/view/SRR13556216
+prefetch SRR13556216
+fastq-dump --split-files SRR13556216
+rm -rf  SRR13556216 SRR13556216_1.fastq
+```
+
+```sh
+# 数据集6：SRR8386204_2	食蟹猕猴
+#URL: https://www.ebi.ac.uk/ena/browser/view/SRR8386204
+prefetch SRR8386204
+fastq-dump --split-files SRR8386204
+rm -rf  SRR8386204 SRR8386204_1.fastq
+```
+
+## 致谢及相关仓库链接
+- Thanks to [@HPC-GXU](https://hpc.gxu.edu.cn) for the computing device support.   
+- Thanks to [@NCBI](https://www.freelancer.com/u/Ostokhoon) for all available datasets.
+- Thanks to [@HARC-Project](https://github.com/shubhamchandak94/HARC) for HARC source code.
+- Thanks to [@SPRING-Project](https://github.com/shubhamchandak94/Spring) for SPRING source code.
+- Thanks to [@MSTCOM-Project](https://github.com/yuansliu/mstcom) for MSTCOM source code.
+- Thanks to [@FASTQCLS-Project](https://github.com/Krlucete/FastqCLS) for FastqCLS source code.
+- Thanks to [@PIGZ-Project](https://github.com/madler/pigz) for Pigz source code.
+- Thanks to [@PBZIP2-Project](https://github.com/cosnicolaou/pbzip2) for PBzip2 source code.
+- Thanks to [@XZ-Project](https://tukaani.org/xz) for XZ source code.
+- Thanks to [@7ZProject](https://www.7-zip.org/sdk.html) for 7Z source code.
+
+## 补充信息
+**Version：**    V1.2023.01.24.
+
+**Authors:**     NBJL-BioGrop.
+
+**Contact us:**  https://nbjl.nankai.edu.cn OR sunh@nbjl.naikai.edu.cn
