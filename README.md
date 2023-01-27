@@ -63,7 +63,7 @@ import fastcopy
 
 ![Table1](https://github.com/fahaihi/SR2C/blob/master/datasets.png "datasets")
 
-实验数据集下载使用sra-tools 工具，其脚本配置参见：https://github.com/ncbi/sra-tools. 数据集下载脚本如下：
+实验数据集下载使用`sra-tools` 工具，其脚本配置参见：https://github.com/ncbi/sra-tools. 数据集下载脚本如下：
 
 数据集1： C.arietinum(鹰嘴豆) URL: https://www.ebi.ac.uk/ena/browser/view/SRR13556216
 ```sh
@@ -121,8 +121,10 @@ rm -rf SRR11994956
 - Thanks to [@7ZProject](https://www.7-zip.org/sdk.html) for 7Z source code.
 
 ## 补充信息
-**Version：**    V1.2023.01.24.
+**版本信息-Version：**    V1.2023.01.24.
 
-**Authors:**     NBJL-BioGrop.
+**作者-Authors:**     NBJL-BioGrop.
 
-**Contact us:**  https://nbjl.nankai.edu.cn OR sunh@nbjl.naikai.edu.cn
+**联系我们-ContactUS:**  https://nbjl.nankai.edu.cn OR sunh@nbjl.naikai.edu.cn
+
+**补充材料-Supplementary:**  https://github.com/fahaihi/SR2C/blob/master/Supplementary.pdf
