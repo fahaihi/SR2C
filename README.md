@@ -33,20 +33,96 @@ SR2C（Structal Redundant Short Reads Collapser）是一款基于循环哈希链
 ## 使用方法
 
 从GitHub克隆SR2C项目并编译:
-```sh
+```shell script
 git clone https://github.com/fahaihi/SR2C.git
 cd SR2C
 chmod +x install.sh
 ./install.sh
 ```
 
-Import from Google Drive:
-```py
-!cp /gdrive/MyDrive/fastcopy.py .
-import fastcopy
+SR2C命令行工具使用方法如下:
+```shell script
+Usage:
+Deduplication:
+  ./SR2C -d [Save-Dir] -f [FastQ-File-Name]  -t [Threads-Num]
+Recover:
+  ./SR2C -r [Save-Dir] -t [Threads-Num]
+Verify:
+  ./SR2C -v [Save-Dir] -f [FastQ-File-Name]
+Help (print this message)
+  ./SR2C -h
 ```
 
+以下是一个使用示例：
 
+A：使用2个线程对data/test.fastq文件进行结构冗余去重，文件保存在test目录下
+```shell script
+data=`pwd`/data/test.fastq
+./SR2C -d test -f ${data} -t 2
+```
+运行结果如下：
+```sh
+FileName:/public/home/jd_sunhui/genCompressor/SR2C/data/test.fastq
+SaveDIR: /public/home/jd_sunhui/genCompressor/SR2C/test
+ReadLen: 80
+Threads: 2
+STEP1:Begin Cycle-HASH-Linkage~
+   RLength:80
+   FileName:/public/home/jd_sunhui/genCompressor/SR2C/data/test.fastq
+   SaveFileName:/public/home/jd_sunhui/genCompressor/SR2C/test
+   Thread:2
+   QualityScoreFlag:0
+   HeaderFlag:0
+STEP2:Begin Load Data~
+   Data.size(): 1500
+   Load_Data(*) running over~
+STEP3:Begin Build CHL~
+   LOG:1500/1500 --> 100%
+   Build_CHL(*) running over~
+STEP4:Begin Files SAVING~
+  File_Name_reads:/public/home/jd_sunhui/genCompressor/SR2C/test/reads.txt
+   File_Name_count:/public/home/jd_sunhui/genCompressor/SR2C/test/count.txt
+   File_Name_id_1:/public/home/jd_sunhui/genCompressor/SR2C/test/id_1.txt
+   File_Name_id_and_pos:/public/home/jd_sunhui/genCompressor/SR2C/test/id_pos.txt
+   File_Name_info:/public/home/jd_sunhui/genCompressor/SR2C/test/info.txt
+   FatherNum : 971
+   Func_File_Saving(*) over~
+STEP5:End Cycle-HASH-Linkage~
+```
+B：使用4个线程对恢复test目录的结构冗余序列
+```shell script
+./SR2C -r test -t 4
+```
+运行结果如下：
+```sh
+SaveDIR: /public/home/jd_sunhui/genCompressor/SR2C/test
+Threads: 4
+STEP1:Get Parameter over~
+   ReadsNum:1500
+   FatherNum:971
+   RLength:80
+   InputDir:/public/home/jd_sunhui/genCompressor/SR2C/test
+STEP2:Load File over~
+STEP3:Paralle Recover Row Data.
+   CPU Cores:4
+   LOG:971/971 --> 100%
+STEP5:Save File Over.
+   OutputSavedPath:/public/home/jd_sunhui/genCompressor/SR2C/test/recover.txt
+```
+C：校验是否是无损恢复
+```shell script
+./SR2C -v test -f ${data}
+```
+运行结果如下：
+```sh
+FileA:/public/home/jd_sunhui/genCompressor/SR2C/data/test.fastq
+FileB:/public/home/jd_sunhui/genCompressor/SR2C/test/recover.txt
+无法恢复序列：0
+```
+Notes: 时间内存测试脚本如下：
+```shell script
+/bin/time -v -p [your command]
+```
 ## 测试数据集
 
 实验采用NCBI开源数据库(https://www.ncbi.nlm.nih.gov) 中14组开源开数据集
@@ -66,7 +142,7 @@ import fastcopy
 实验数据集下载使用`sra-tools` 工具，其脚本配置参见：https://github.com/ncbi/sra-tools. 数据集下载脚本如下：
 
 数据集1： C.arietinum(鹰嘴豆) URL: https://www.ebi.ac.uk/ena/browser/view/SRR13556216
-```sh
+```shell script
 cd SR2C/data
 prefetch SRR13556216
 fastq-dump SRR13556216
@@ -74,7 +150,7 @@ rm -rf SRR13556216 SRR13556216_2.fastq
 ```
 
 数据集2： Human(人类宏基因组) URL: https://www.ebi.ac.uk/ena/browser/view/SRR16553126
-```
+```shell script
 prefetch SRR16553126
 fastq-dump SRR16553126 
 rm -rf SRR16553126 SRR16553126_2.fastq
@@ -82,28 +158,28 @@ rm -rf SRR16553126 SRR16553126_2.fastq
 ```
 
 数据集3&4：M.fascicularis(食蟹猕猴) URL: https://www.ebi.ac.uk/ena/browser/view/SRR8386204
-```
+```shell script
 prefetch SRR8386204
 fastq-dump SRR8386204
 rm -rf SRR8386204
 ```
 
 数据集5&6：Mouse.tumor(小鼠肿瘤) URL: https://www.ebi.ac.uk/ena/browser/view/SRR17794741
-```
+```shell script
 prefetch SRR17794741
 fastq-dump --split-files SRR17794741
 rm -rf  SRR17794741 
 ```
 
 数据集7：S.fontinalis-1(美洲红点鲑) URL: https://www.ebi.ac.uk/ena/browser/view/SRR11995278
-```
+```shell script
 prefetch SRR11995278
 fastq-dump SRR11995278
 rm -rf SRR11995278
 ```
 
 数据集8：S.fontinalis-2(美洲红点鲑) URL: https://www.ebi.ac.uk/ena/browser/view/SRR11994956
-```
+```shell script
 prefetch SRR11994956
 fastq-dump SRR11994956
 rm -rf SRR11994956
