@@ -125,16 +125,15 @@ Notes: 时间内存测试脚本如下：
 ```
 ## 测试数据集
 
-实验采用NCBI开源数据库(https://www.ncbi.nlm.nih.gov) 中14组开源开数据集
+实验采用NCBI开源数据库(https://www.ncbi.nlm.nih.gov) 中8组真实开源测序数据集
 `SRR8386204_2`
 `SRR11994956`	
 `SRR17794741_1`	
 `SRR17794741_2`	
 `SRR8386204_1`	
 `SRR13556216_1`	
-`SRR16553126_1`	
+`SRR16553126_1`	和
 `SRR11995278`	
-	
 用于实验评估（序列总数：105,016,192条、数据规模：25,607,473KB）。详细数据集描述如下：
 
 ![Table1](https://github.com/fahaihi/SR2C/blob/master/datasets.png "datasets")
