@@ -33,7 +33,7 @@ SR2C（Structal Redundant Short Reads Collapser）是一款基于循环哈希链
 ## 使用方法
 
 从GitHub克隆SR2C项目并编译:
-```sh
+```shell script
 git clone https://github.com/fahaihi/SR2C.git
 cd SR2C
 chmod +x install.sh
@@ -41,7 +41,7 @@ chmod +x install.sh
 ```
 
 SR2C命令行工具使用方法如下:
-```sh
+```shell script
 Usage:
 Deduplication:
   ./SR2C -d [Save-Dir] -f [FastQ-File-Name]  -t [Threads-Num]
@@ -56,7 +56,7 @@ Help (print this message)
 以下是一个使用示例：
 
 A：使用2个线程对data/test.fastq文件进行结构冗余去重，文件保存在test目录下
-```
+```shell script
 data=`pwd`/data/test.fastq
 ./SR2C -d test -f ${data} -t 2
 ```
@@ -90,11 +90,11 @@ STEP4:Begin Files SAVING~
 STEP5:End Cycle-HASH-Linkage~
 ```
 B：使用4个线程对恢复test目录的结构冗余序列
-```sh
+```shell script
 ./SR2C -r test -t 4
 ```
 运行结果如下：
-```shell script
+```sh
 SaveDIR: /public/home/jd_sunhui/genCompressor/SR2C/test
 Threads: 4
 STEP1:Get Parameter over~
@@ -114,7 +114,7 @@ C：校验是否是无损恢复
 ./SR2C -v test -f ${data}
 ```
 运行结果如下：
-```shell script
+```sh
 FileA:/public/home/jd_sunhui/genCompressor/SR2C/data/test.fastq
 FileB:/public/home/jd_sunhui/genCompressor/SR2C/test/recover.txt
 无法恢复序列：0
@@ -142,7 +142,7 @@ Notes: 时间内存测试脚本如下：
 实验数据集下载使用`sra-tools` 工具，其脚本配置参见：https://github.com/ncbi/sra-tools. 数据集下载脚本如下：
 
 数据集1： C.arietinum(鹰嘴豆) URL: https://www.ebi.ac.uk/ena/browser/view/SRR13556216
-```sh
+```shell script
 cd SR2C/data
 prefetch SRR13556216
 fastq-dump SRR13556216
@@ -150,7 +150,7 @@ rm -rf SRR13556216 SRR13556216_2.fastq
 ```
 
 数据集2： Human(人类宏基因组) URL: https://www.ebi.ac.uk/ena/browser/view/SRR16553126
-```
+```shell script
 prefetch SRR16553126
 fastq-dump SRR16553126 
 rm -rf SRR16553126 SRR16553126_2.fastq
@@ -158,28 +158,28 @@ rm -rf SRR16553126 SRR16553126_2.fastq
 ```
 
 数据集3&4：M.fascicularis(食蟹猕猴) URL: https://www.ebi.ac.uk/ena/browser/view/SRR8386204
-```
+```shell script
 prefetch SRR8386204
 fastq-dump SRR8386204
 rm -rf SRR8386204
 ```
 
 数据集5&6：Mouse.tumor(小鼠肿瘤) URL: https://www.ebi.ac.uk/ena/browser/view/SRR17794741
-```
+```shell script
 prefetch SRR17794741
 fastq-dump --split-files SRR17794741
 rm -rf  SRR17794741 
 ```
 
 数据集7：S.fontinalis-1(美洲红点鲑) URL: https://www.ebi.ac.uk/ena/browser/view/SRR11995278
-```
+```shell script
 prefetch SRR11995278
 fastq-dump SRR11995278
 rm -rf SRR11995278
 ```
 
 数据集8：S.fontinalis-2(美洲红点鲑) URL: https://www.ebi.ac.uk/ena/browser/view/SRR11994956
-```
+```shell script
 prefetch SRR11994956
 fastq-dump SRR11994956
 rm -rf SRR11994956
