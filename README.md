@@ -40,13 +40,89 @@ chmod +x install.sh
 ./install.sh
 ```
 
-Import from Google Drive:
-```py
-!cp /gdrive/MyDrive/fastcopy.py .
-import fastcopy
+SR2C命令行工具使用方法如下:
+```sh
+Usage:
+Deduplication:
+  ./SR2C -d [Save-Dir] -f [FastQ-File-Name]  -t [Threads-Num]
+Recover:
+  ./SR2C -r [Save-Dir] -t [Threads-Num]
+Verify:
+  ./SR2C -v [Save-Dir] -f [FastQ-File-Name]
+Help (print this message)
+  ./SR2C -h
 ```
 
+以下是一个使用示例：
 
+A：使用2个线程对data/test.fastq文件进行结构冗余去重，文件保存在test目录下
+```
+data=`pwd`/data/test.fastq
+./SR2C -d test -f ${data} -t 2
+```
+运行结果如下：
+```sh
+FileName:/public/home/jd_sunhui/genCompressor/SR2C/data/test.fastq
+SaveDIR: /public/home/jd_sunhui/genCompressor/SR2C/test
+ReadLen: 80
+Threads: 2
+STEP1:Begin Cycle-HASH-Linkage~
+   RLength:80
+   FileName:/public/home/jd_sunhui/genCompressor/SR2C/data/test.fastq
+   SaveFileName:/public/home/jd_sunhui/genCompressor/SR2C/test
+   Thread:2
+   QualityScoreFlag:0
+   HeaderFlag:0
+STEP2:Begin Load Data~
+   Data.size(): 1500
+   Load_Data(*) running over~
+STEP3:Begin Build CHL~
+   LOG:1500/1500 --> 100%
+   Build_CHL(*) running over~
+STEP4:Begin Files SAVING~
+  File_Name_reads:/public/home/jd_sunhui/genCompressor/SR2C/test/reads.txt
+   File_Name_count:/public/home/jd_sunhui/genCompressor/SR2C/test/count.txt
+   File_Name_id_1:/public/home/jd_sunhui/genCompressor/SR2C/test/id_1.txt
+   File_Name_id_and_pos:/public/home/jd_sunhui/genCompressor/SR2C/test/id_pos.txt
+   File_Name_info:/public/home/jd_sunhui/genCompressor/SR2C/test/info.txt
+   FatherNum : 971
+   Func_File_Saving(*) over~
+STEP5:End Cycle-HASH-Linkage~
+```
+B：使用4个线程对恢复test目录的结构冗余序列
+```sh
+./SR2C -r test -t 4
+```
+运行结果如下：
+```shell script
+SaveDIR: /public/home/jd_sunhui/genCompressor/SR2C/test
+Threads: 4
+STEP1:Get Parameter over~
+   ReadsNum:1500
+   FatherNum:971
+   RLength:80
+   InputDir:/public/home/jd_sunhui/genCompressor/SR2C/test
+STEP2:Load File over~
+STEP3:Paralle Recover Row Data.
+   CPU Cores:4
+   LOG:971/971 --> 100%
+STEP5:Save File Over.
+   OutputSavedPath:/public/home/jd_sunhui/genCompressor/SR2C/test/recover.txt
+```
+C：校验是否是无损恢复
+```shell script
+./SR2C -v test -f ${data}
+```
+运行结果如下：
+```shell script
+FileA:/public/home/jd_sunhui/genCompressor/SR2C/data/test.fastq
+FileB:/public/home/jd_sunhui/genCompressor/SR2C/test/recover.txt
+无法恢复序列：0
+```
+Notes: 时间内存测试脚本如下：
+```shell script
+/bin/time -v -p [your command]
+```
 ## 测试数据集
 
 实验采用NCBI开源数据库(https://www.ncbi.nlm.nih.gov) 中14组开源开数据集
