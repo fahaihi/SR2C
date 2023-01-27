@@ -119,6 +119,7 @@ rm -rf SRR11994956
 - Thanks to [@PBZIP2-Project](https://github.com/cosnicolaou/pbzip2) for PBzip2 source code.
 - Thanks to [@XZ-Project](https://tukaani.org/xz) for XZ source code.
 - Thanks to [@7ZProject](https://www.7-zip.org/sdk.html) for 7Z source code.
+- Thanks to [@Minirmd](https://github.com/yuansliu/minirmd) for 7Z source code.
 
 ## 补充信息
 **版本信息-Version：**    V1.2023.01.24.
