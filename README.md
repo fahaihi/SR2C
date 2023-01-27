@@ -55,7 +55,7 @@ Help (print this message)
 
 以下是一个使用示例：
 
-A：使用2个线程对data/test.fastq文件进行结构冗余去重，文件保存在test目录下
+**A：使用2个线程对data/test.fastq文件进行结构冗余去重，文件保存在test目录下**
 ```shell script
 data=`pwd`/data/test.fastq
 ./SR2C -d test -f ${data} -t 2
@@ -89,7 +89,7 @@ STEP4:Begin Files SAVING~
    Func_File_Saving(*) over~
 STEP5:End Cycle-HASH-Linkage~
 ```
-B：使用4个线程对恢复test目录的结构冗余序列
+**B：使用4个线程对恢复test目录的结构冗余序列**
 ```shell script
 ./SR2C -r test -t 4
 ```
@@ -109,7 +109,7 @@ STEP3:Paralle Recover Row Data.
 STEP5:Save File Over.
    OutputSavedPath:/public/home/jd_sunhui/genCompressor/SR2C/test/recover.txt
 ```
-C：校验是否是无损恢复
+**C：校验是否是无损恢复**
 ```shell script
 ./SR2C -v test -f ${data}
 ```
