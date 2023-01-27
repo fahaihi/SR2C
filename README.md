@@ -89,7 +89,7 @@ STEP4:Begin Files SAVING~
    Func_File_Saving(*) over~
 STEP5:End Cycle-HASH-Linkage~
 ```
-**B：使用4个线程对恢复test目录的结构冗余序列**
+**B：使用4个线程恢复test目录下的结构冗余序列**
 ```shell script
 ./SR2C -r test -t 4
 ```
@@ -109,7 +109,7 @@ STEP3:Paralle Recover Row Data.
 STEP5:Save File Over.
    OutputSavedPath:/public/home/jd_sunhui/genCompressor/SR2C/test/recover.txt
 ```
-**C：校验是否是无损恢复**
+**C：校验是否是无损恢复原始测序序列**
 ```shell script
 ./SR2C -v test -f ${data}
 ```
