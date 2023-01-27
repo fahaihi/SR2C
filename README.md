@@ -50,75 +50,64 @@ import fastcopy
 ## 测试数据集
 
 实验采用NCBI开源数据库(https://www.ncbi.nlm.nih.gov) 中14组开源开数据集
-`SRR13556216_2`	
-`ERR7091256`	
-`SRR8386204_2`	
-`SRR921889`	
+`SRR8386204_2`
 `SRR11994956`	
 `SRR17794741_1`	
 `SRR17794741_2`	
 `SRR8386204_1`	
 `SRR13556216_1`	
 `SRR16553126_1`	
-`SRR16552220_1`	
 `SRR11995278`	
-`SRR15112778_1`	
-`SRR15112778_2`	
-用于实验评估（序列总数：239,985,080条、数据规模：64,874,833KB）。详细数据集描述如下：
+	
+用于实验评估（序列总数：105,016,192条、数据规模：25,607,473KB）。详细数据集描述如下：
 
 ![Table1](https://github.com/fahaihi/SR2C/blob/master/datasets.png "datasets")
 
-实验数据集下载使用sra-tools 工具，其脚本配置参见：https://github.com/ncbi/sra-tools. 以下给出部分测试数据集的下载脚本：
+实验数据集下载使用sra-tools 工具，其脚本配置参见：https://github.com/ncbi/sra-tools. 数据集下载脚本如下：
 
+数据集1： C.arietinum(鹰嘴豆) URL: https://www.ebi.ac.uk/ena/browser/view/SRR13556216
 ```sh
-# SRR921889 人类病毒宏基因组
-# URL: https://www.ebi.ac.uk/ena/browser/view/SRR921889
 cd SR2C/data
-prefetch SRR921889
-fastq-dump SRR921889
-rm -rf  SRR921889
+prefetch SRR13556216
+fastq-dump SRR13556216
+rm -rf SRR13556216 SRR13556216_2.fastq
 ```
 
-```sh
-# ERR7091256 智人
-# URL: https://www.ebi.ac.uk/ena/browser/view/ERR7091256
-prefetch ERR7091256
-fastq-dump ERR7091256 
-rm -rf  ERR7091256
+数据集2： Human(人类宏基因组) URL: https://www.ebi.ac.uk/ena/browser/view/SRR16553126
+```
+prefetch SRR16553126
+fastq-dump SRR16553126 
+rm -rf SRR16553126 SRR16553126_2.fastq
+
 ```
 
-```sh
-# SRR11994956 美洲红点鲑
-# URL: https://www.ebi.ac.uk/ena/browser/view/SRR11994956
-prefetch SRR11994956
-fastq-dump SRR11994956
-rm -rf  SRR11994956
+数据集3&4：M.fascicularis(食蟹猕猴) URL: https://www.ebi.ac.uk/ena/browser/view/SRR8386204
+```
+prefetch SRR8386204
+fastq-dump SRR8386204
+rm -rf SRR8386204
 ```
 
-```sh
-# SRR17794741_1	小鼠肿瘤
-# URL: https://www.ebi.ac.uk/ena/browser/view/SRR17794741
+数据集5&6：Mouse.tumor(小鼠肿瘤) URL: https://www.ebi.ac.uk/ena/browser/view/SRR17794741
+```
 prefetch SRR17794741
 fastq-dump --split-files SRR17794741
-rm -rf  SRR17794741 SRR17794741_2.fastq
+rm -rf  SRR17794741 
 ```
 
-```sh
-# SRR13556216_2	鹰嘴豆
-# URL: https://www.ebi.ac.uk/ena/browser/view/SRR13556216
-prefetch SRR13556216
-fastq-dump --split-files SRR13556216
-rm -rf  SRR13556216 SRR13556216_1.fastq
+数据集7：S.fontinalis-1(美洲红点鲑) URL: https://www.ebi.ac.uk/ena/browser/view/SRR11995278
+```
+prefetch SRR11995278
+fastq-dump SRR11995278
+rm -rf SRR11995278
 ```
 
-```sh
-# SRR8386204_2	食蟹猕猴
-#URL: https://www.ebi.ac.uk/ena/browser/view/SRR8386204
-prefetch SRR8386204
-fastq-dump --split-files SRR8386204
-rm -rf  SRR8386204 SRR8386204_1.fastq
+数据集8：S.fontinalis-2(美洲红点鲑) URL: https://www.ebi.ac.uk/ena/browser/view/SRR11994956
 ```
-
+prefetch SRR11994956
+fastq-dump SRR11994956
+rm -rf SRR11994956
+```
 ## 致谢及相关仓库链接
 - Thanks to [@HPC-GXU](https://hpc.gxu.edu.cn) for the computing device support.   
 - Thanks to [@NCBI](https://www.freelancer.com/u/Ostokhoon) for all available datasets.
