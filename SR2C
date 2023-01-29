@@ -1,0 +1,108 @@
+#!/bin/bash
+set -e
+# Structal Redundant Short Reads Collapser PipeLine
+usage() {
+  cat <<EOF
+SR2C: Structal Redundant Short Reads Collapser.
+Works on fixed length short reads.
+
+Usage:
+Deduplication:
+  ./SR2C -d [Save-Dir] -f [FastQ-File-Name]  -t [Threads-Num]
+Recover:
+  ./SR2C -r [Save-Dir] -t [Threads-Num]
+Verify:
+  ./SR2C -v [Save-Dir] -f [FastQ-File-Name]
+Help (print this message)
+  ./SR2C -h
+
+More supplementary information at:
+  https://github.com/fahahi/SR2C
+Version V2022.01.27
+Authors:NBJL-BioGrop.
+Contact us:
+  https://nbjl.nankai.edu.cn
+  sunh@nbjl.naikai.edu.cn
+EOF
+  exit 0
+}
+
+
+#Initialize variables to default values.
+mode=''
+file_name=''
+save_dir=''
+recover_name=''
+threads=8
+
+#Check the number of arguments. If none are passed, print help and exit.
+NUMARGS=$#
+if [ $NUMARGS -eq 0 ]; then
+  usage
+fi
+
+while getopts ':d:r:v:f:t:h' opt; do
+  case "$opt" in
+  d) [[ -n "$mode" ]] && usage || mode='d' && save_dir=$OPTARG ;;
+  r) [[ -n "$mode" ]] && usage || mode='r' && save_dir=$OPTARG ;;
+  v) [[ -n "$mode" ]] && usage || mode='v' && save_dir=$OPTARG ;;
+  f) file_name=$OPTARG ;;
+  #s) save_dir=$OPTARG ;;
+  #e) recover_name=$OPTARG ;;
+  t) threads=$OPTARG ;;
+  h) usage ;;
+  \?) usage ;;
+  *) usage ;;
+  esac
+done
+
+if [[ $mode == 'd' ]]; then
+  echo "**********Deduplication******************"
+  readLen=`head -20 ${file_name} | wc -L`
+  pwd_path=`pwd`
+  echo "FileName:${file_name}"
+  echo "SaveDIR: ${pwd_path}/${save_dir}"
+  echo "ReadLen: ${readLen}"
+  echo "Threads: ${threads}"
+
+  if [ -d "${pwd_path}/${save_dir}" ]; then
+    rm -rf "${pwd_path}/${save_dir}"
+    mkdir "${pwd_path}/${save_dir}"
+  else
+    mkdir "${pwd_path}/${save_dir}"
+  fi
+
+  cd src
+  ./PCHL.out ${readLen} ${file_name} ${pwd_path}/${save_dir} ${threads} 0 0
+  if [ $? -ne 0 ]; then
+    echo "PCHL.out wrong!"
+    exit 0
+  fi
+  echo "**********Deduplication Over**************"
+elif [[ $mode == 'r' ]]; then
+  echo "************Recover***********************"
+  pwd_path=`pwd`
+  cd src
+  echo "SaveDIR: ${pwd_path}/${save_dir}"
+  echo "Threads: ${threads}"
+  ./RCHL.out ${pwd_path}/${save_dir} ${pwd_path}/${save_dir}/recover.txt ${threads}
+  if [ $? -ne 0 ]; then
+    echo "RCHL.out wrong!"
+    exit 0
+  fi
+  echo "************Recover Over*******************"
+elif [[ $mode == 'v' ]]; then
+  echo "************Verify ************************"
+  pwd_path=`pwd`
+  cd src
+  ./verify.out ${file_name} ${pwd_path}/${save_dir}/recover.txt
+  if [ $? -ne 0 ]; then
+    echo "verify.out wrong!"
+    exit 0
+  fi
+  echo "************Verify Over********************"
+else
+  echo "You must input -d or -r or -v"
+  usage
+  exit 1
+fi
