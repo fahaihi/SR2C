@@ -10,7 +10,7 @@
   <br>Structal Redundant Short Reads Collapser
 </h1>
   <p align="center">
-    基于循环哈希链表的DNA测序数据结构冗余短序列去重器
+    A DNA sequencing data structure redundant short reads deduplicator via cyclic hash linkege
     <br />
     </p>
 </p>
