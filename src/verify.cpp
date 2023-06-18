@@ -62,7 +62,7 @@ int main(int argc, const char *argv[]){
             cout << endl;
         }
     }
-    cout << "无法恢复序列：" << Num << endl;
+    cout << "Unable to recover sequencing reads: " << Num << endl;
 
     A.close(); B.close();
 

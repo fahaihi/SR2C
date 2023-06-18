@@ -11,17 +11,17 @@
 #include <stdio.h>
 using namespace std;
 uint RLength = 0;
-uint getSum(const uint* data, uint pos){
+uint getSum(uint* data, uint pos){
     uint sum = 0;
     for(uint i=0; i<pos; i++) sum = sum + data[i];
     return sum;
 }
-inline string Func_RO(const string& Fread, uint pos){
+inline string Func_RO(string& Fread, uint pos){
     // 逆循环回到原始状态
     if(pos==0) return Fread.substr(0, RLength);
     else return Fread.substr(RLength-pos, pos) + Fread.substr(0, RLength - pos);
 }
-inline string Func_R1(const string& Fread, uint pos){
+inline string Func_R1(string& Fread, uint pos){
     pos = pos - RLength;
     string Sread = Fread.substr(0, RLength);
     for(int i=0; i<RLength; i++){
@@ -34,7 +34,7 @@ inline string Func_R1(const string& Fread, uint pos){
     if(pos==0) return Sread;
     else return Sread.substr(RLength-pos, pos) + Sread.substr(0, RLength-pos);
 }
-inline string Func_R2(const string& Fread, uint pos){
+inline string Func_R2(string& Fread, uint pos){
     pos = pos - 2*RLength;
     if(pos==0){
         string Sread = Fread.substr(0, RLength);
@@ -47,7 +47,7 @@ inline string Func_R2(const string& Fread, uint pos){
         return Sread;
     }
 }
-inline string Func_R3(const string& Fread, uint pos){
+inline string Func_R3(string& Fread, uint pos){
     pos = pos - 3*RLength;
     if(pos == 0){
         string Sread = Fread.substr(0, RLength);
