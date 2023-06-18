@@ -15,11 +15,11 @@
     </p>
 </p>
 <p align="center">
-  <a href="#项目说明">项目说明</a> •
-  <a href="#使用方法">使用方法</a> •
-  <a href="#测试数据集">测试数据集</a> •
-  <a href="#致谢及相关仓库链接">致谢及相关仓库链接</a> •
-  <a href="#补充信息">补充信息</a> •
+  <a href="#about-the-sr2c">About The SR2C</a> •
+  <a href="#useage">Useage</a> •
+  <a href="#dataset-acquisition">Dataset Acquisition</a> •
+  <a href="#aknowledgements">Acknowledgements</a> •
+  <a href="#additional-information">Additional Information</a> •
 </p>  
 
 <p align="center">
@@ -27,12 +27,13 @@
 ![screenshot](img/clip.gif)
 </p>                                                                                                                             
                                                                                                                                                       
-## 项目说明
-SR2C（Structal Redundant Short Reads Collapser）是一款基于循环哈希链表（Cycle-Hash-Linkage）数据结构的短序列去重器。SR2C旨在去除高通量基因组测序数据中的结构冗余序列，包括直接重复(Direct Repeats, DRs)、镜像重复(Mirror Repeats, MRs)、反转重复(Inverted Repeats, IRs)、配对重复(Paired Repeats, PRs)和互补回文重复(Complementary Palindromes Repeats, CPRs)。
+## About The SR2C
+SR2C（Structal Redundant Short Reads Collapser） is a short sequencing reads deduplicator based on the Cycle-Hash-Linkage data structure. SR2C aims to remove structurally redundant sequences in high-throughput genome sequencing data, including Direct Repeats (DRs), Mirror Repeats (MRs), Inverted Repeats (IRs), Paired Repeats (PRs), and Complementary Palindromes Repeats (CPRs).
+In the current version, we use SR2C for data compression optimization.
 
-## 使用方法
+## Useage
 
-从GitHub克隆SR2C项目并编译:
+Clone the SR2C project from GitHub and compile it:
 ```shell script
 git clone https://github.com/fahaihi/SR2C.git
 cd SR2C
@@ -40,7 +41,7 @@ chmod +x install.sh
 ./install.sh
 ```
 
-SR2C命令行工具使用方法如下:
+The usage of SR2C command-line tool is as follows:
 ```shell script
 Usage:
 Deduplication:
@@ -53,14 +54,14 @@ Help (print this message)
   ./SR2C -h
 ```
 
-以下是一个使用示例：
+An example:
 
-**A：使用2个线程对data/test.fastq文件进行结构冗余去重，文件保存在test目录下**
+**A：To perform structural redundancy removal on the data/test.fastq file using 2 threads and save the result in the test directory, use the following command:**
 ```shell script
 data=`pwd`/data/test.fastq
 ./SR2C -d test -f ${data} -t 2
 ```
-运行结果如下：
+Results：
 ```sh
 FileName:/public/home/jd_sunhui/genCompressor/SR2C/data/test.fastq
 SaveDIR: /public/home/jd_sunhui/genCompressor/SR2C/test
@@ -89,11 +90,11 @@ STEP4:Begin Files SAVING~
    Func_File_Saving(*) over~
 STEP5:End Cycle-HASH-Linkage~
 ```
-**B：使用4个线程恢复test目录下的结构冗余序列**
+**B：To recover structural redundancy sequences from the test directory using 4 threads, use the following command:**
 ```shell script
 ./SR2C -r test -t 4
 ```
-运行结果如下：
+Results：
 ```sh
 SaveDIR: /public/home/jd_sunhui/genCompressor/SR2C/test
 Threads: 4
@@ -109,23 +110,23 @@ STEP3:Paralle Recover Row Data.
 STEP5:Save File Over.
    OutputSavedPath:/public/home/jd_sunhui/genCompressor/SR2C/test/recover.txt
 ```
-**C：校验是否是无损恢复原始测序序列**
+**C：Verify if it is lossless to recover the original sequencing reads**
 ```shell script
 ./SR2C -v test -f ${data}
 ```
-运行结果如下：
+Result：
 ```sh
 FileA:/public/home/jd_sunhui/genCompressor/SR2C/data/test.fastq
 FileB:/public/home/jd_sunhui/genCompressor/SR2C/test/recover.txt
-无法恢复序列：0
+Unable to recover sequences：0
 ```
-Notes: 时间内存测试脚本如下：
+Notes: Here is a time and memory testing script:：
 ```shell script
 /bin/time -v -p [your command]
 ```
-## 测试数据集
+## Dataset Acquisition
 
-实验采用NCBI开源数据库(https://www.ncbi.nlm.nih.gov) 中8组真实开源测序数据集
+The experiment used 8 real open-source sequencing datasets from the NCBI open-source database (https://www.ncbi.nlm.nih.gov):
 `SRR8386204_2`
 `SRR11994956`	
 `SRR17794741_1`	
@@ -134,13 +135,13 @@ Notes: 时间内存测试脚本如下：
 `SRR13556216_1`	
 `SRR16553126_1`	和
 `SRR11995278`	
-用于实验评估（序列总数：105,016,192条、数据规模：25,607,473KB）。详细数据集描述如下：
+These datasets were used for experimental evaluation, consisting of a total of 105,016,192 reads and a data size of 25,607,473KB. Detailed descriptions of the datasets are as follows:
 
 ![Table1](https://github.com/fahaihi/SR2C/blob/master/datasets.png "datasets")
 
-实验数据集下载使用`sra-tools` 工具，其脚本配置参见：https://github.com/ncbi/sra-tools. 数据集下载脚本如下：
+The experimental datasets were downloaded using the sra-tools package, and the script configuration can be found at https://github.com/ncbi/sra-tools. The dataset download script is as follows:
 
-数据集1： C.arietinum(鹰嘴豆) URL: https://www.ebi.ac.uk/ena/browser/view/SRR13556216
+dataset-1： C.arietinum(鹰嘴豆) URL: https://www.ebi.ac.uk/ena/browser/view/SRR13556216
 ```shell script
 cd SR2C/data
 prefetch SRR13556216
@@ -148,7 +149,7 @@ fastq-dump SRR13556216
 rm -rf SRR13556216 SRR13556216_2.fastq
 ```
 
-数据集2： Human(人类宏基因组) URL: https://www.ebi.ac.uk/ena/browser/view/SRR16553126
+dataset-2： Human(人类宏基因组) URL: https://www.ebi.ac.uk/ena/browser/view/SRR16553126
 ```shell script
 prefetch SRR16553126
 fastq-dump SRR16553126 
@@ -156,51 +157,47 @@ rm -rf SRR16553126 SRR16553126_2.fastq
 
 ```
 
-数据集3&4：M.fascicularis(食蟹猕猴) URL: https://www.ebi.ac.uk/ena/browser/view/SRR8386204
+dataset-3&4：M.fascicularis(食蟹猕猴) URL: https://www.ebi.ac.uk/ena/browser/view/SRR8386204
 ```shell script
 prefetch SRR8386204
 fastq-dump SRR8386204
 rm -rf SRR8386204
 ```
 
-数据集5&6：Mouse.tumor(小鼠肿瘤) URL: https://www.ebi.ac.uk/ena/browser/view/SRR17794741
+dataset-5&6：Mouse.tumor(小鼠肿瘤) URL: https://www.ebi.ac.uk/ena/browser/view/SRR17794741
 ```shell script
 prefetch SRR17794741
 fastq-dump --split-files SRR17794741
 rm -rf  SRR17794741 
 ```
 
-数据集7：S.fontinalis-1(美洲红点鲑) URL: https://www.ebi.ac.uk/ena/browser/view/SRR11995278
+dataset-7：S.fontinalis-1(美洲红点鲑) URL: https://www.ebi.ac.uk/ena/browser/view/SRR11995278
 ```shell script
 prefetch SRR11995278
 fastq-dump SRR11995278
 rm -rf SRR11995278
 ```
 
-数据集8：S.fontinalis-2(美洲红点鲑) URL: https://www.ebi.ac.uk/ena/browser/view/SRR11994956
+dataset-8：S.fontinalis-2(美洲红点鲑) URL: https://www.ebi.ac.uk/ena/browser/view/SRR11994956
 ```shell script
 prefetch SRR11994956
 fastq-dump SRR11994956
 rm -rf SRR11994956
 ```
-## 致谢及相关仓库链接
+## Acknowledgements
 - Thanks to [@HPC-GXU](https://hpc.gxu.edu.cn) for the computing device support.   
 - Thanks to [@NCBI](https://www.freelancer.com/u/Ostokhoon) for all available datasets.
-- Thanks to [@HARC-Project](https://github.com/shubhamchandak94/HARC) for HARC source code.
-- Thanks to [@SPRING-Project](https://github.com/shubhamchandak94/Spring) for SPRING source code.
-- Thanks to [@MSTCOM-Project](https://github.com/yuansliu/mstcom) for MSTCOM source code.
-- Thanks to [@FASTQCLS-Project](https://github.com/Krlucete/FastqCLS) for FastqCLS source code.
 - Thanks to [@PIGZ-Project](https://github.com/madler/pigz) for Pigz source code.
 - Thanks to [@PBZIP2-Project](https://github.com/cosnicolaou/pbzip2) for PBzip2 source code.
 - Thanks to [@XZ-Project](https://tukaani.org/xz) for XZ source code.
 - Thanks to [@7ZProject](https://www.7-zip.org/sdk.html) for 7Z source code.
 - Thanks to [@Minirmd](https://github.com/yuansliu/minirmd) for 7Z source code.
 
-## 补充信息
-**版本信息-Version：**    V1.2023.01.24.
+## Additional Information
+**Version：**    V1.2023.01.24.
 
-**作者-Authors:**     NBJL-BioGrop.
+**Authors:**     NBJL-BioGrop.
 
-**联系我们-ContactUS:**  https://nbjl.nankai.edu.cn OR sunh@nbjl.naikai.edu.cn
+**ContactUS:**  https://nbjl.nankai.edu.cn OR sunh@nbjl.naikai.edu.cn
 
-**补充材料-Supplementary:**  https://github.com/fahaihi/SR2C/blob/master/Supplementary.pdf
+**Supplementary:**  https://github.com/fahaihi/SR2C/blob/master/Supplementary.pdf
