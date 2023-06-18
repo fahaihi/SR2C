@@ -110,7 +110,7 @@ STEP3:Paralle Recover Row Data.
 STEP5:Save File Over.
    OutputSavedPath:/public/home/jd_sunhui/genCompressor/SR2C/test/recover.txt
 ```
-<font color="red">Notes</font>：If you see the `terminate called after throwing an instance of 'std::invalid_argument'` error message, please try to redo the deduplication step (A).
+<font color="red">Notes</font>：If `terminate called after throwing an instance of 'std::invalid_argument'` error message happened, please run `./install.sh` and try to redo the deduplication step (A).
 
 
 **C：Verify if it is lossless to recover the original sequencing reads**
