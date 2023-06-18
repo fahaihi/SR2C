@@ -28,7 +28,7 @@
 </p>                                                                                                                             
                                                                                                                                                       
 ## About The SR2C
-SR2C（Structal Redundant Short Reads Collapser） is a short sequencing reads deduplicator based on the Cycle-Hash-Linkage data structure. SR2C aims to remove structurally redundant sequences in high-throughput genome sequencing data, including Direct Repeats (DRs), Mirror Repeats (MRs), Inverted Repeats (IRs), Paired Repeats (PRs), and Complementary Palindromes Repeats (CPRs).
+SR2C（Structurally Redundant Short Reads Collapser） is a short sequencing reads deduplicator based on the Cycle-Hash-Linkage data structure. SR2C aims to remove structurally redundant sequences in high-throughput genome sequencing data, including Direct Repeats (DRs), Mirror Repeats (MRs), Inverted Repeats (IRs), Paired Repeats (PRs), and Complementary Palindromes Repeats (CPRs).
 In the current version, we use SR2C for data compression optimization.
 
 ## Useage
