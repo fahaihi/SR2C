@@ -7,7 +7,7 @@
 <h1>
 <p align="center">
   <img src="https://github.com/fahaihi/SR2C/blob/master/SR2C_LOGO.png" alt="Logo" width="653" height="163">
-  <br>Structal Redundant Short Reads Collapser
+  <br>Structurally Redundant Short Reads Collapser
 </h1>
   <p align="center">
     A DNA sequencing data structure redundant short reads deduplicator via cyclic hash linkege
